@@ -1,0 +1,25 @@
+?> cd DynamicTextList/mutation_testing
+?> time { sh mutation_testing_execute.sh; }
+Mutation-testing 100% done, finished.
+
+-----------------------------
+Sat Sep 16 14:52:25 2023
+Time passed: 6 minutes
+Lines processed: 334 of 334
+Mutations: 304
+Build failed: 216
+Test failed: 88
+Test timedout: 0
+Build timedout: 0
+Mutations survived: 0
+Mutation killratio: 100%
+-----------------------------
+
+The following mutations survived: 
+
+Results have been written to ./MutationResult_.._DynamicTextList.class.c.html
+
+
+real	6m4,153s
+user	5m48,481s
+sys     0m17,451s

@@ -1,0 +1,6 @@
+TEST SUITE: Oksa functions
+[SUCCESS] #01 ???.
+[SUCCESS] #02 ???.
+
+TEST SUITE: Oksa functions => Not allowed test cases ending with exit() 
+[SUCCESS] #01 ???

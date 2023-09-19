@@ -1,0 +1,39 @@
+TEST SUITE:
+DynamicText.class.c
+
+Positive unit tests:
+[SUCCESS] #01 Initialise and free a dynamic text.
+[SUCCESS] #02 Set an empty text.
+[SUCCESS] #03 Set an unicode text.
+[SUCCESS] #04 Set a text with the longest possible length without triggering a reallocation.
+[SUCCESS] #05 Set a large text to trigger reallocation.
+[SUCCESS] #06 Set 2 large text to trigger 2 reallocations.
+[SUCCESS] #07 Set 3 texts which grow on every assignment.
+[SUCCESS] #08 Set 3 texts which shrink on every assignment.
+[SUCCESS] #09 Append an empty text.
+[SUCCESS] #10 Append an unicode text.
+[SUCCESS] #11 Append 3 texts.
+[SUCCESS] #12 Append 2 large texts to trigger reallocations.
+[SUCCESS] #13 Manually resize 2x and fill all bytes with letters each time.
+
+Negative unit tests:
+[SUCCESS] #01 Allocate with a mocked malloc function (always NULL)!
+[SUCCESS] #02 Set an empty text to a NULL parameter!
+[SUCCESS] #03 Set an empty text to a NULL pointer!
+[SUCCESS] #04 Set a NULL parameter to a valid dynamic text!
+[SUCCESS] #05 Set text over maximum allowed bytes limit!
+[SUCCESS] #06 Append a text to a NULL parameter!
+[SUCCESS] #07 Append a text to a NULL pointer!
+[SUCCESS] #08 Append a NULL parameter to a dynamic text!
+[SUCCESS] #09 Append text over maximum allowed bytes limit!
+[SUCCESS] #10 Resize a NULL parameter!
+[SUCCESS] #11 Resize a NULL pointer!
+[SUCCESS] #12 Resize to a smaller size of bytes!
+[SUCCESS] #13 Resize to same size!
+[SUCCESS] #14 Resize with a mocked realloc function (always NULL)!
+[SUCCESS] #15 Get length from a NULL parameter!
+[SUCCESS] #16 Get length from a NULL pointer!
+[SUCCESS] #17 Get length from a NULL parameter!
+[SUCCESS] #18 Get length from a NULL pointer!
+[SUCCESS] #19 Free a NULL parameter!
+[SUCCESS] #20 Free a NULL pointer ("double free")!

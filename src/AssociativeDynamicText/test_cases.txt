@@ -1,0 +1,14 @@
+TEST SUITE:
+AssociativeDynamicText.class.c
+
+Positive unit tests:
+[SUCCESS] #01 Set multi-byte value.
+
+Negative unit tests:
+[SUCCESS] #01 Parameter for key is NULL!
+[SUCCESS] #02 Parameter for key is empty!
+[SUCCESS] #03 Allocate with a mocked allocation function!
+[SUCCESS] #04 Set with NULL parameter!
+[SUCCESS] #05 Set with NULL pointer for parameter!
+[SUCCESS] #06 Free NULL parameter!
+[SUCCESS] #07 Free NULL pointer for parameter!

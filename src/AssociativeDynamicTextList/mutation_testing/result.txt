@@ -1,0 +1,24 @@
+?> time { sh mutation_testing_execute.sh; }
+Mutation-testing 100% done, finished.
+
+-----------------------------
+Sat Sep 16 18:22:54 2023
+Time passed: 18 minutes
+Lines processed: 445 of 445
+Mutations: 445
+Build failed: 303
+Test failed: 142
+Test timedout: 0
+Build timedout: 0
+Mutations survived: 0
+Mutation killratio: 100%
+-----------------------------
+
+The following mutations survived: 
+
+Results have been written to ./MutationResult_.._AssociativeDynamicTextList.class.c.html
+
+
+real	18m5,246s
+user	17m35,930s
+sys     0m34,720s

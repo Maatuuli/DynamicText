@@ -1,0 +1,2 @@
+TEST SUITE: heper_for_cgi.c => getNumericValueFromhexadecialLetter function
+[SUCCESS] #01 ???.

@@ -1,0 +1,17 @@
+TEST SUITE:
+AssociativeDynamicTextList.class.c
+
+Positive unit tests:
+[SUCCESS] #01 Check on emptyness for a list with 0 elements and with 1 element.
+[SUCCESS] #02 Check if regular key exists in empty list, in list with 3 elements and check for non-existing key.
+[SUCCESS] #03 Get different elements with their key from a list.
+[SUCCESS] #04 Count empty list and list with 1 element.
+
+Negative unit tests:
+[SUCCESS] #01 Allocate list with a mocked allocation function which always return NULL!
+[SUCCESS] #02 8x negative unit tests for adding an element.
+[SUCCESS] #03 Count elements on NULL parameter and on NULL pointer for list!
+[SUCCESS] #04 Free NULL parameter and NULL pointer!
+[SUCCESS] #05 5x negative unit tests for getting an element.
+[SUCCESS] #06 Empty check on NULL parameter and NULL pointer for list!
+[SUCCESS] #07 4x negative unit tests for checking if a key exists.

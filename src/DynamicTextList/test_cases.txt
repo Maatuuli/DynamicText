@@ -1,0 +1,28 @@
+TEST SUITE:
+DynamicTextList.class.c
+
+Positive unit tests:
+[SUCCESS] #01 Count the amount of list elements from an empty DynamicTextList.
+[SUCCESS] #02 Count the amount of list elements from a list with 3 elements.
+[SUCCESS] #03 Check emptyness for an empty DynamicTextList.
+[SUCCESS] #04 Check emptyness for a list with 1 element.
+[SUCCESS] #05 Get the correct element #1 from a list with 3 elements.
+[SUCCESS] #06 Get the correct element #3 from a list with 3 elements.
+
+Negative unit tests:
+[SUCCESS] #01 Emptyness with NULL parameter!
+[SUCCESS] #02 Push to a NULL parameter!
+[SUCCESS] #03 Push to a NULL pointer!
+[SUCCESS] #04 Push a NULL parameter!
+[SUCCESS] #05 Push a text with a mocked allocation function (always NULL)!
+[SUCCESS] #06 Push 2 texts and the last one with a mocked allocation function (always NULL)!
+[SUCCESS] #07 Free a NULL parameter!
+[SUCCESS] #08 Count a NULL parameter!
+[SUCCESS] #09 Get list element with index 0 from a NULL parameter!
+[SUCCESS] #10 Get list element with index -1!
+[SUCCESS] #11 Get a list element with an index out of bounds!
+[SUCCESS] #12 Mocked malloc returns NULL for allocation!
+[SUCCESS] #13 Check for emptyness on NULL pointer!
+[SUCCESS] #14 Free a NULL pointer!
+[SUCCESS] #15 Count a dereferenced NULL parameter!
+[SUCCESS] #16 Get a list element from a dereferenced NULL parameter!

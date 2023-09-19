@@ -1,0 +1,93 @@
+TEST SUITE: explodeDynamicText function
+[SUCCESS] #01 Explode a text with an one-letter separator which do not exist.
+[SUCCESS] #02 Explode a text with a normal text which do not exist.
+[SUCCESS] #03 Explode a text with a multi-byte separator which do not exist.
+[SUCCESS] #04 Explode a text with a multi-byte text which do not exist.
+[SUCCESS] #05 Explode a classical key value text which one parameter pair.
+[SUCCESS] #06 Explode a classical key value text with many parameter pairs.
+[SUCCESS] #07 Explode a classical key value text which has only key part.
+[SUCCESS] #08 Explode a classical key value text which has only value part.
+[SUCCESS] #09 Explode a classical key value text which has different configured pairs.
+[SUCCESS] #10 Explode an one-byte text with a multi-byte letter.
+[SUCCESS] #11 Explode an one-byte text with a multi-byte text.
+[SUCCESS] #12 Explode a large text with a multi byte text.
+[SUCCESS] #13 ???.
+[SUCCESS] #14 ???.
+[SUCCESS] #15 ???.
+
+TEST SUITE: explodeDynamicText function => Not allowed test cases ending with exit() 
+[SUCCESS] #01 Explode text from a NULL parameter is not allowed!
+[SUCCESS] #02 Explode text from a NULL pointer parameter is not allowed!
+
+TEST SUITE: findPositionInDynamicText function
+[SUCCESS] #01 Offset  0: Find no position of an one-byte search text in an empty text.
+[SUCCESS] #02 Offset  0: Find no position of an one-byte search text in an one-byte text.
+[SUCCESS] #03 Offset  0: Find no position of a multi-byte search text in an one-byte text.
+[SUCCESS] #04 Offset  0: Find no position of an one-byte search text in an ordinary text.
+[SUCCESS] #05 Offset >0: Find no position of an one-byte search text in an ordinary text.
+[SUCCESS] #06 Offset  0: Find no position of a multi-byte search text in an ordinary text.
+[SUCCESS] #07 Offset >0: Find no position of a multi-byte search text in an ordinary text.
+[SUCCESS] #08 Offset  0: Find no position of a half correct multi-byte search text in an ordinary text.
+[SUCCESS] #09 Offset  0: Find the correct position of an one-byte search text in an one-byte text.
+[SUCCESS] #10 Offset  0: Find the correct position of an one-byte search text in an ordinary text.
+[SUCCESS] #11 Offset >0: Find the correct position of an one-byte search text in an ordinary text.
+[SUCCESS] #12 Offset  0: Find the correct position of a multi-byte search text in an ordinary text.
+[SUCCESS] #13 Offset >0: Find the correct position of a multi-byte search text in an ordinary text.
+[SUCCESS] #14 ?????????? Offset 0: Find the correct position of a multi-byte search text in an ordinary text.
+
+TEST SUITE: findPositionInDynamicText function => Not allowed test cases ending with exit() 
+[SUCCESS] #01 Find a position in a NULL parameter is not allowed!
+[SUCCESS] #02 Find a position in a NULL dynamicText pointer is not allowed!
+[SUCCESS] #03 Search text is NULL which is not allowed!
+[SUCCESS] #04 Text from needle parameter is empty which is not allowed!
+[SUCCESS] #05 Offset for start index is smaller than 0 which is not allowed!
+[SUCCESS] #06 Offset for start index is greater-equal than length of text which is not allowed!
+
+TEST SUITE: getSubstringInBytesFromDynamicText function
+[SUCCESS] #01 Get one-byte substring from an one-byte text.
+[SUCCESS] #02 Get one-byte substring from an ordinary text.
+[SUCCESS] #03 Get one-letter multibyte substring from an ordinary text.
+[SUCCESS] #04 Get one-byte substring from a large text.
+[SUCCESS] #05 Get multi-byte substring from an ordinary text.
+[SUCCESS] #06 Get complete text as substring from an ordinary text.
+[SUCCESS] #07 Get multi-byte substring from a large text.
+[SUCCESS] #08 Get complete text as substring from a large text.
+
+TEST SUITE: getSubstringInBytesFromDynamicText function => Not allowed test cases ending with exit() 
+[SUCCESS] #01 Get substring from a NULL parameter is not allowed!
+[SUCCESS] #02 Get substring from a NULL dynamicText pointer is not allowed!
+[SUCCESS] #03 Start index is smaller than 0 which is not allowed!
+[SUCCESS] #04 Start index is greater-equal than the maximum length of text which is not allowed!
+[SUCCESS] #05 End index is smaller than start index which is not allowed!
+[SUCCESS] #06 End index is greater-equal than the maximum length of text which is not allowed!
+[SUCCESS] #07 Try to save result in NULL parameter which is not allowed!
+[SUCCESS] #08 Try to save result in NULL pointer parameter which is not allowed!
+
+TEST SUITE: implodeListForDynamicText function
+[FAILED] #01 Implode a normal list with key value pairs.
+globaleAmountOfAllocations: 19
+globaleAmountOfReallocations: 0
+globaleAmountOfFrees: 2
+ABORTED in function "executeTest1" in file: "../helper_for_texts/unit_tests/implodeListForDynamicText.c" on line: 41!
+
+TEST SUITE: replaceDynamicText function
+[SUCCESS] #01 Different search texts with empty text for replace in a 1-letter text.
+[SUCCESS] #02 Different search texts with a 1-letter replace in a 1-letter text.
+[SUCCESS] #03 Different search texts with a multi-letter replace in a 1-letter text.
+[SUCCESS] #04 Different search texts with empty text for replace in a multi-letter text.
+[SUCCESS] #05 Different search texts with a 1-letter replace in a multi-letter text.
+[SUCCESS] #06 Different search texts with a multi-letter replace in a multi-letter text.
+[SUCCESS] #07 Recursive examples with multi-letter texts.
+
+TEST SUITE: replaceDynamicText() function => Not allowed test cases ending with exit() 
+[SUCCESS] #01 Replacing in a text which is NULL which is not allowed!
+[SUCCESS] #02 Replacing in a text whose pointer is NULL which is not allowed!
+[SUCCESS] #03 Replacing in an empty text which is not allowed!
+[SUCCESS] #04 Replacing with NULL for search which is not allowed!
+[SUCCESS] #05 Replacing with an empty text for search which is not allowed!
+[SUCCESS] #06 Replacing with NULL for replace which is not allowed!
+
+TEST SUITE: stripTagsInDynamicText function
+[SUCCESS] #01 Strip tags in text with inline Javascript.
+[SUCCESS] #02 Strip tags in a text with any tags.
+
