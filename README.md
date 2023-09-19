@@ -1,5 +1,5 @@
 # DynamicText
-Core (DynamicText, text functions, stdlib-wrapper) for Web Developement in C.
+Core (DynamicText, text functions, stdlib-wrapper) for Web Development in C.
 
 Project goals:
 
