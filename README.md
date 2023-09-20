@@ -6,8 +6,8 @@ Project goals:
 * web development in compiled programming languages like the C programming language
 * basic set of functions for programming easily a website
 * usage of FastCGI or CGI
-  * CGI and FastCGI are part of most web spaces for just $5 per month
-  * execute your compiled web sites without the need to have an own web server
+  * cloud servers are available for just $5 per month
+  * execute your compiled web sites with nginx and spawn-fcgi
 * usage of tools and best practices for defensive programming in error-prone programming languages
   * unit tests with good equivalence partitioning
   * usage of an address santizer tools to avoid not allowed read or write actions in memory
