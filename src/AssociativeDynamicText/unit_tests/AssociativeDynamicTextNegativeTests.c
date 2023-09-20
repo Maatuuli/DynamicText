@@ -267,6 +267,76 @@ executeNegativeTest7(void)
 }
 
 
+static void
+executeNegativeTest8(void)
+{
+    char* titleFromTest = "#08 Get key and value from NULL parameter and NULL pointer!";
+
+    /* ### */
+    int errorNumber = 42;
+    struct AssociativeDynamicText* var1 = allocateAssociativeDynamicTextByKey("key1", &errorNumber, __FILE__, __LINE__);
+    struct AssociativeDynamicText* var2 = NULL;
+
+    if ((NULL == var1) || (0 != errorNumber))
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->getKey(NULL, &errorNumber, __FILE__, __LINE__);
+
+    if (4000 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->getKey(&var2, &errorNumber, __FILE__, __LINE__);
+
+    if (4010 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->getValue(NULL, &errorNumber, __FILE__, __LINE__);
+
+    if (5000 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->getValue(&var2, &errorNumber, __FILE__, __LINE__);
+
+    if (5010 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->free(&var1, &errorNumber, __FILE__, __LINE__);
+
+    if (
+        (0 == errorNumber)
+        && (NULL == var1)
+        && (globaleAmountOfAllocations == globaleAmountOfFrees)
+        && (0 == globaleAmountOfAllocatedMemoryInBytes)
+    )
+    {
+        printf("[SUCCESS] %s\n", titleFromTest);
+        return;
+    }
+
+    abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+}
+
+
 int
 main(void)
 {
@@ -282,6 +352,7 @@ main(void)
     executeNegativeTest5();
     executeNegativeTest6();
     executeNegativeTest7();
+    executeNegativeTest8();
 
     return EXIT_SUCCESS;
 }

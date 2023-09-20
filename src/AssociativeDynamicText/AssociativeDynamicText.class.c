@@ -11,11 +11,14 @@ struct AssociativeDynamicText {
     /* Function pointers for pseudo OOP in C. */
     void (*free)(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
     void (*set)(struct AssociativeDynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
+    struct DynamicText* (*getKey)(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
+    struct DynamicText* (*getValue)(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
 };
-
 
 void freeAssociativeDynamicText(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
 void setValueInAssociativeDynamicText(struct AssociativeDynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
+struct DynamicText* getKeyInAssociativeDynamicText(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
+struct DynamicText* getValueInAssociativeDynamicText(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber);
 
 
 struct AssociativeDynamicText*
@@ -56,6 +59,8 @@ allocateAssociativeDynamicTextByKey(char* key, int* errorNumber, char* filename,
     /* Function pointers for pseudo OOP in C. */
     element->free = &freeAssociativeDynamicText;
     element->set = &setValueInAssociativeDynamicText;
+    element->getKey = &getKeyInAssociativeDynamicText;
+    element->getValue = &getValueInAssociativeDynamicText;
 
     *errorNumber = 0;
 
@@ -120,4 +125,54 @@ setValueInAssociativeDynamicText(struct AssociativeDynamicText** element, char* 
     internalValue->set(&internalValue, text, errorNumber, filename, lineNumber);
 
     *errorNumber = 0;
+}
+
+
+struct DynamicText*
+getKeyInAssociativeDynamicText(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber)
+{
+    if (NULL == element)
+    {
+        appendMessageToErrorLog("Parameter \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 4000;
+
+        return NULL;
+    }
+
+    if (NULL == (*element))
+    {
+        appendMessageToErrorLog("Pointer \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 4010;
+
+        return NULL;
+    }
+
+    *errorNumber = 0;
+
+    return (*element)->internalKey;
+}
+
+
+struct DynamicText*
+getValueInAssociativeDynamicText(struct AssociativeDynamicText** element, int* errorNumber, char* filename, int lineNumber)
+{
+    if (NULL == element)
+    {
+        appendMessageToErrorLog("Parameter \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 5000;
+
+        return NULL;
+    }
+
+    if (NULL == (*element))
+    {
+        appendMessageToErrorLog("Pointer \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 5010;
+
+        return NULL;
+    }
+
+    *errorNumber = 0;
+
+    return (*element)->internalValue;
 }

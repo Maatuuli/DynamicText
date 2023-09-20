@@ -24,10 +24,10 @@ main(void)
 
     var1->set(&var1, "This is a sentence (ÄÖÜäöüß@µ).", &errorNumber, __FILE__, __LINE__);
 
-    struct DynamicText* key = var1->internalKey;
+    struct DynamicText* key = var1->getKey(&var1, &errorNumber, __FILE__, __LINE__);
     printf("KEY:\n\"%s\"\n\n", key->getBytesPointer(&key, &errorNumber));
 
-    struct DynamicText* value = var1->internalValue;
+    struct DynamicText* value = var1->getValue(&var1, &errorNumber, __FILE__, __LINE__);
     printf("VALUE:\n\"%s\"\n", value->getBytesPointer(&value, &errorNumber));
 
     var1->free(&var1, &errorNumber, __FILE__, __LINE__);

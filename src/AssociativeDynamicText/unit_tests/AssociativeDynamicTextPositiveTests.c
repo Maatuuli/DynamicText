@@ -44,8 +44,21 @@ executePositiveTest1(void)
     }
 
     /* ### */
-    struct DynamicText* key = var1->internalKey;
-    struct DynamicText* value = var1->internalValue;
+    errorNumber = 42;
+    struct DynamicText* key = var1->getKey(&var1, &errorNumber, __FILE__, __LINE__);
+    if (0 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    errorNumber = 42;
+    struct DynamicText* value = var1->getValue(&var1, &errorNumber, __FILE__, __LINE__);
+    if (0 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
     errorNumber = 42;
 
     if (

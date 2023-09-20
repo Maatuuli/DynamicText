@@ -40,7 +40,7 @@ main(void)
     if (list1->isKeyExisting(&list1, "key2", &errorNumber, __FILE__, __LINE__))
     {
         struct AssociativeDynamicText* element = list1->getElement(&list1, "key2", &errorNumber, __FILE__, __LINE__);
-        struct DynamicText* text = element->internalValue;
+        struct DynamicText* text = element->getValue(&element, &errorNumber, __FILE__, __LINE__);
         printf("Text from second list element:\n\"%s\"\n", text->getBytesPointer(&text, &errorNumber));
     }
 

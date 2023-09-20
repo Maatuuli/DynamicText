@@ -12,3 +12,4 @@ Negative unit tests:
 [SUCCESS] #05 Set with NULL pointer for parameter!
 [SUCCESS] #06 Free NULL parameter!
 [SUCCESS] #07 Free NULL pointer for parameter!
+[SUCCESS] #08 Get key and value from NULL parameter and NULL pointer!
