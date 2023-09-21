@@ -5,6 +5,7 @@ See full details in LICENSE.txt file.
 */
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -15,9 +16,6 @@ See full details in LICENSE.txt file.
 #include "../../../tests/mocks/wrappedFunctionForReallocation.c"
 #include "../DynamicText.class.c"
 #include "../../../tests/helper_for_tests.c"
-
-
-// DEBUG: static void wueder zurückstellen!!!
 
 
 static void
@@ -672,12 +670,14 @@ executeNegativeTest14(void)
 static void
 executeNegativeTest15(void)
 {
-    char* titleFromTest = "#15 Get length from a NULL parameter!";
+    char* titleFromTest = "#15 Get byte length from a NULL parameter or NULL pointer!";
 
     /* ### */
     int errorNumber = 42;
     int oldAmountOfReallocations = globaleAmountOfReallocations;
     struct DynamicText* var1 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
+    struct DynamicText* var2 = NULL;
+
     if ((NULL == var1) || (0 != errorNumber))
     {
         abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
@@ -685,10 +685,22 @@ executeNegativeTest15(void)
 
     /* ### */
     errorNumber = 42;
-    int result = var1->getLength(NULL, &errorNumber, __FILE__, __LINE__);
+    int result = var1->getByteLength(NULL, &errorNumber, __FILE__, __LINE__);
 
     if (
         (4000 != errorNumber)
+        || (-1 != result)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    result = var1->getByteLength(&var2, &errorNumber, __FILE__, __LINE__);
+
+    if (
+        (4010 != errorNumber)
         || (-1 != result)
     )
     {
@@ -718,25 +730,25 @@ executeNegativeTest15(void)
 static void
 executeNegativeTest16(void)
 {
-    char* titleFromTest = "#16 Get length from a NULL pointer!";
+    char* titleFromTest = "#16 Get UTF-8 length from a NULL parameter or NULL pointer!";
 
     /* ### */
     int errorNumber = 42;
     int oldAmountOfReallocations = globaleAmountOfReallocations;
-    struct DynamicText* var1 = NULL;
-    struct DynamicText* var2 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
+    struct DynamicText* var1 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
+    struct DynamicText* var2 = NULL;
 
-    if ((NULL == var2) || (0 != errorNumber))
+    if ((NULL == var1) || (0 != errorNumber))
     {
         abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
     }
 
     /* ### */
     errorNumber = 42;
-    int result = var2->getLength(&var1, &errorNumber, __FILE__, __LINE__);
+    int result = var1->getUtf8Length(NULL, &errorNumber, __FILE__, __LINE__);
 
     if (
-        (4010 != errorNumber)
+        (8000 != errorNumber)
         || (-1 != result)
     )
     {
@@ -745,11 +757,23 @@ executeNegativeTest16(void)
 
     /* ### */
     errorNumber = 42;
-    var2->free(&var2, &errorNumber, __FILE__, __LINE__);
+    result = var1->getUtf8Length(&var2, &errorNumber, __FILE__, __LINE__);
+
+    if (
+        (8010 != errorNumber)
+        || (-1 != result)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->free(&var1, &errorNumber, __FILE__, __LINE__);
 
     if (
         (0 == errorNumber)
-        && (NULL == var2)
+        && (NULL == var1)
         && (globaleAmountOfAllocations == globaleAmountOfFrees)
         && (oldAmountOfReallocations == globaleAmountOfReallocations)
         && (0 == globaleAmountOfAllocatedMemoryInBytes)
@@ -766,54 +790,7 @@ executeNegativeTest16(void)
 static void
 executeNegativeTest17(void)
 {
-    char* titleFromTest = "#17 Get length from a NULL parameter!";
-
-    /* ### */
-    int errorNumber = 42;
-    int oldAmountOfReallocations = globaleAmountOfReallocations;
-    struct DynamicText* var2 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
-
-    if ((NULL == var2) || (0 != errorNumber))
-    {
-        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
-    }
-
-    /* ### */
-    errorNumber = 42;
-    char* result = var2->getBytesPointer(NULL, &errorNumber);
-
-    if (
-        (7000 != errorNumber)
-        || (NULL != result)
-    )
-    {
-        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
-    }
-
-    /* ### */
-    errorNumber = 42;
-    var2->free(&var2, &errorNumber, __FILE__, __LINE__);
-
-    if (
-        (0 == errorNumber)
-        && (NULL == var2)
-        && (globaleAmountOfAllocations == globaleAmountOfFrees)
-        && (oldAmountOfReallocations == globaleAmountOfReallocations)
-        && (0 == globaleAmountOfAllocatedMemoryInBytes)
-    )
-    {
-        printf("[SUCCESS] %s\n", titleFromTest);
-        return;
-    }
-
-    abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
-}
-
-
-static void
-executeNegativeTest18(void)
-{
-    char* titleFromTest = "#18 Get length from a NULL pointer!";
+    char* titleFromTest = "#17 Get byte data from a NULL parameter or NULL pointer!";
 
     /* ### */
     int errorNumber = 42;
@@ -828,7 +805,16 @@ executeNegativeTest18(void)
 
     /* ### */
     errorNumber = 42;
-    char* result = var2->getBytesPointer(&var1, &errorNumber);
+    char* result = var2->getBytesPointer(NULL, &errorNumber);
+
+    if ((7000 != errorNumber) || (NULL != result))
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    result = var2->getBytesPointer(&var1, &errorNumber);
 
     if ((NULL != result) || (7010 != errorNumber))
     {
@@ -856,9 +842,9 @@ executeNegativeTest18(void)
 
 
 static void
-executeNegativeTest19(void)
+executeNegativeTest18(void)
 {
-    char* titleFromTest = "#19 Free a NULL parameter!";
+    char* titleFromTest = "#18 Free a NULL parameter!";
 
     /* ### */
     int errorNumber = 42;
@@ -899,9 +885,9 @@ executeNegativeTest19(void)
 
 
 static void
-executeNegativeTest20(void)
+executeNegativeTest19(void)
 {
-    char* titleFromTest = "#20 Free a NULL pointer (\"double free\")!";
+    char* titleFromTest = "#19 Free a NULL pointer (\"double free\")!";
 
     /* ### */
     int errorNumber = 42;
@@ -970,7 +956,6 @@ main(void)
     executeNegativeTest17();
     executeNegativeTest18();
     executeNegativeTest19();
-    executeNegativeTest20();
 
     return EXIT_SUCCESS;
 }

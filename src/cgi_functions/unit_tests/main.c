@@ -67,7 +67,7 @@ executeTest2(void)
     convertCgiEncodingIntoNormalText(&var1,  __FILE__, __LINE__);
 
     if (
-        (customStrlen(sentenceExpected, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentenceExpected, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), sentenceExpected, customStrlen(sentenceExpected, &errorNumber)))
     )
     {

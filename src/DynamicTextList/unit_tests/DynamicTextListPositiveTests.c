@@ -273,7 +273,7 @@ executePositiveTest5(void)
     if (
         (0 != errorNumber)
         || (NULL == var1)
-        || (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        || (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
         || (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), sentence1, customStrlen(sentence1, &errorNumber)))
         || (0 != errorNumber)
@@ -353,7 +353,7 @@ executePositiveTest6(void)
     if (
         (0 != errorNumber)
         || (NULL == var1)
-        || (customStrlen(sentence3, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        || (customStrlen(sentence3, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), sentence3, customStrlen(sentence3, &errorNumber)))
     )
     {

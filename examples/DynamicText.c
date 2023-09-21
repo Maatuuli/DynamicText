@@ -29,7 +29,8 @@ main(void)
     var1->append(&var1, " World! (äöüÄÖÜß@µ)", &errorNumber, __FILE__, __LINE__);
 
     printf("Text: %s\n", var1->getBytesPointer(&var1, &errorNumber));
-    printf("Amount of Bytes: %i\n", var1->getLength(&var1, &errorNumber, __FILE__, __LINE__));
+    printf("Byte length: %i\n", var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__));
+    printf("UTF-8 length: %li\n", var1->getUtf8Length(&var1, &errorNumber, __FILE__, __LINE__));
 
     var1->free(&var1, &errorNumber, __FILE__, __LINE__);
 

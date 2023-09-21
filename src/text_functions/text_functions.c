@@ -45,7 +45,7 @@ findPositionInDynamicText(struct DynamicText** text, char* needle, int offset, i
         return -1;
     }
 
-    int lengthOfText = (*text)->getLength(text, errorNumber, filename, lineNumber);
+    int lengthOfText = (*text)->getByteLength(text, errorNumber, filename, lineNumber);
     if (0 == lengthOfText)
     {
         *errorNumber = 0;
@@ -203,7 +203,7 @@ void
 explodeDynamicText(struct DynamicText** text, char* separator, struct DynamicTextList** list, char* filename, int lineNumber)
 {
     int errorNumber = 0;
-    int lengthOfText = (*text)->getLength(text, &errorNumber, filename, lineNumber);
+    int lengthOfText = (*text)->getByteLength(text, &errorNumber, filename, lineNumber);
     int lengthOfSeparator = customStrlen(separator, &errorNumber);
 
     if (0 == lengthOfText)
@@ -293,7 +293,7 @@ explodeDynamicText(struct DynamicText** text, char* separator, struct DynamicTex
         bufferCounter++;
     }
 
-    if (var1->getLength(&var1, &errorNumber, filename, lineNumber) > 0)
+    if (var1->getByteLength(&var1, &errorNumber, filename, lineNumber) > 0)
     {
         (*list)->push(list, var1->bytes, &errorNumber, filename, lineNumber);
         var1->set(&var1, "", &errorNumber, filename, lineNumber);
@@ -412,7 +412,7 @@ replaceDynamicTextWithOffset(struct DynamicText** text, char* search, char* repl
         customExit(EXIT_FAILURE);
     }
 
-    int lengthOfText = (*text)->getLength(text, &errorNumber, filename, lineNumber);
+    int lengthOfText = (*text)->getByteLength(text, &errorNumber, filename, lineNumber);
 
     if (0 == lengthOfText)
     {
@@ -519,7 +519,7 @@ replaceDynamicTextWithOffset(struct DynamicText** text, char* search, char* repl
     (*text)->set(text, var1->bytes, &errorNumber, filename, lineNumber);
     var1->free(&var1, &errorNumber, filename, lineNumber);
 
-    if ((*text)->getLength(text, &errorNumber, filename, lineNumber) > 0)
+    if ((*text)->getByteLength(text, &errorNumber, filename, lineNumber) > 0)
     {
         replaceDynamicTextWithOffset(
             text,
@@ -674,7 +674,7 @@ toLower(struct DynamicText** text, char* filename, int lineNumber)
 {
     int errorNumber = 0;
 
-    if (0 == (*text)->getLength(text, &errorNumber, __FILE__, __LINE__))
+    if (0 == (*text)->getByteLength(text, &errorNumber, __FILE__, __LINE__))
     {
         return;
     }

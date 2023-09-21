@@ -232,7 +232,7 @@ executeNegativeTest6(void)
     int pos = findPositionInDynamicText(
         &var1,
         "abc",
-        10 + var1->getLength(&var1, &errorNumber, __FILE__, __LINE__),
+        10 + var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__),
         &errorNumber,
         __FILE__,
         __LINE__

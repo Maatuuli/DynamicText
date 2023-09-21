@@ -73,7 +73,7 @@ void
 convertSpecialCharsIntoHtmlCodes(struct DynamicText** text, char* filename, int lineNumber)
 {
     int errorNumber = 0;
-    if (0 == (*text)->getLength(text, &errorNumber, __FILE__, __LINE__))
+    if (0 == (*text)->getByteLength(text, &errorNumber, __FILE__, __LINE__))
     {
         return;
     }
@@ -225,7 +225,7 @@ initRequestParametersByEnvironmentText(struct AssociativeDynamicTextList** list,
     {
         struct DynamicText* elementFromList = listForExplode->getElementByIndex(&listForExplode, i, &errorNumber, filename, lineNumber);
 
-        if (0 == elementFromList->getLength(&elementFromList, &errorNumber, __FILE__, __LINE__))
+        if (0 == elementFromList->getByteLength(&elementFromList, &errorNumber, __FILE__, __LINE__))
         {
             continue;
         }

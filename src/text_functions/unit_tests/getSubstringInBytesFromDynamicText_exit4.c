@@ -30,8 +30,8 @@ main(void)
 
     getSubstringInBytesFromDynamicText(
         &var1,
-        var1->getLength(&var1, &errorNumber, __FILE__, __LINE__) + 50,
-        var1->getLength(&var1, &errorNumber, __FILE__, __LINE__) + 150,
+        var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__) + 50,
+        var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__) + 150,
         &var2,
         __FILE__,
         __LINE__

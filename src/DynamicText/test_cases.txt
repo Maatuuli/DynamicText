@@ -15,6 +15,7 @@ Positive unit tests:
 [SUCCESS] #11 Append 3 texts.
 [SUCCESS] #12 Append 2 large texts to trigger reallocations.
 [SUCCESS] #13 Manually resize 2x and fill all bytes with letters each time.
+[SUCCESS] #14 Check length of UTF-8 text.
 
 Negative unit tests:
 [SUCCESS] #01 Allocate with a mocked malloc function (always NULL)!
@@ -31,9 +32,8 @@ Negative unit tests:
 [SUCCESS] #12 Resize to a smaller size of bytes!
 [SUCCESS] #13 Resize to same size!
 [SUCCESS] #14 Resize with a mocked realloc function (always NULL)!
-[SUCCESS] #15 Get length from a NULL parameter!
-[SUCCESS] #16 Get length from a NULL pointer!
-[SUCCESS] #17 Get length from a NULL parameter!
-[SUCCESS] #18 Get length from a NULL pointer!
-[SUCCESS] #19 Free a NULL parameter!
-[SUCCESS] #20 Free a NULL pointer ("double free")!
+[SUCCESS] #15 Get byte length from a NULL parameter or NULL pointer!
+[SUCCESS] #16 Get UTF-8 length from a NULL parameter or NULL pointer!
+[SUCCESS] #17 Get byte data from a NULL parameter or NULL pointer!
+[SUCCESS] #18 Free a NULL parameter!
+[SUCCESS] #19 Free a NULL pointer ("double free")!

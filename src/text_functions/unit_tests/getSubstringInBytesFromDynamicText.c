@@ -33,7 +33,7 @@ executeTest1(void)
     getSubstringInBytesFromDynamicText(&var1, 0, 1, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -73,7 +73,7 @@ executeTest2(void)
     getSubstringInBytesFromDynamicText(&var1, 8, 9, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -113,7 +113,7 @@ executeTest3(void)
     getSubstringInBytesFromDynamicText(&var1, 42, 44, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -154,7 +154,7 @@ executeTest4(void)
     getSubstringInBytesFromDynamicText(&var1, 10, 11, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -194,7 +194,7 @@ executeTest5(void)
     getSubstringInBytesFromDynamicText(&var1, 27, 53, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -235,7 +235,7 @@ executeTest6(void)
     getSubstringInBytesFromDynamicText(&var1, 0, customStrlen(sentence1, &errorNumber), &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -276,7 +276,7 @@ executeTest7(void)
     getSubstringInBytesFromDynamicText(&var1, 0, 70, &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {
@@ -317,7 +317,7 @@ executeTest8(void)
     getSubstringInBytesFromDynamicText(&var1, 0, customStrlen(sentence1, &errorNumber), &var2, __FILE__, __LINE__);
 
     if (
-        (customStrlen(expectedText, &errorNumber) != var2->getLength(&var2, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(expectedText, &errorNumber) != var2->getByteLength(&var2, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var2->getBytesPointer(&var2, &errorNumber), expectedText, customStrlen(expectedText, &errorNumber)))
     )
     {

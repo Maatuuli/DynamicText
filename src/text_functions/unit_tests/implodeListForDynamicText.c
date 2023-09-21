@@ -34,7 +34,7 @@ executeTest1(void)
     implodeListForDynamicText(&list1, &var1, "&", __FILE__, __LINE__);
 
     if (
-        (0 != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (0 != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), "", 0))
     )
     {

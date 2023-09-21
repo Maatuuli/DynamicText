@@ -31,7 +31,7 @@ main(void)
     getSubstringInBytesFromDynamicText(
         &var1,
         5,
-        (*var1).getLength(&var1, &errorNumber, __FILE__, __LINE__) + 5,
+        (*var1).getByteLength(&var1, &errorNumber, __FILE__, __LINE__) + 5,
         &var2,
         __FILE__,
         __LINE__

@@ -14,7 +14,8 @@ struct DynamicText {
     void (*append)(struct DynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
     void (*free)(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
     char* (*getBytesPointer)(struct DynamicText** element, int* errorNumber);
-    int (*getLength)(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
+    int (*getByteLength)(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
+    int64_t (*getUtf8Length)(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
     void (*resize)(struct DynamicText** element, int newSize, int* errorNumber, char* filename, int lineNumber);
     void (*set)(struct DynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
 };
@@ -23,7 +24,8 @@ struct DynamicText {
 void appendDynamicText(struct DynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
 void freeDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
 char* getBytesPointerFromDynamicText(struct DynamicText** element, int* errorNumber);
-int getLengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
+int getByteLengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
+int64_t getUtf8LengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber);
 void resizeDynamicText(struct DynamicText** element, int newSize, int* errorNumber, char* filename, int lineNumber);
 void setDynamicText(struct DynamicText** element, char* text, int* errorNumber, char* filename, int lineNumber);
 
@@ -53,7 +55,8 @@ allocateDynamicText(int* errorNumber, char* filename, int lineNumber)
     element->append = &appendDynamicText;
     element->free = &freeDynamicText;
     element->getBytesPointer = &getBytesPointerFromDynamicText;
-    element->getLength = &getLengthFromDynamicText;
+    element->getByteLength = &getByteLengthFromDynamicText;
+    element->getUtf8Length = &getUtf8LengthFromDynamicText;
     element->resize = &resizeDynamicText;
     element->set = &setDynamicText;
 
@@ -193,7 +196,7 @@ getBytesPointerFromDynamicText(struct DynamicText** element, int* errorNumber)
 
 
 int
-getLengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber)
+getByteLengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber)
 {
     if (NULL == element)
     {
@@ -214,6 +217,43 @@ getLengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* f
     *errorNumber = 0;
 
     return customStrlen((*element)->bytes, errorNumber);
+}
+
+
+int64_t
+getUtf8LengthFromDynamicText(struct DynamicText** element, int* errorNumber, char* filename, int lineNumber)
+{
+    if (NULL == element)
+    {
+        appendMessageToErrorLog("Parameter \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 8000;
+
+        return -1;
+    }
+
+    if (NULL == (*element))
+    {
+        appendMessageToErrorLog("Pointer \"element\" is NULL!", __func__, filename, lineNumber);
+        *errorNumber = 8010;
+
+        return -1;
+    }
+
+    int64_t counter = 0;
+    int64_t length = (*element)->getByteLength(element, errorNumber, filename, lineNumber);
+    char* text = (*element)->bytes;
+
+    for (int i = 0; i < length; i++)
+    {
+        if (((text[i]) & 0xC0) != 0x80)
+        {
+            counter++;
+        }
+    }
+
+    *errorNumber = 0;
+
+    return counter;
 }
 
 

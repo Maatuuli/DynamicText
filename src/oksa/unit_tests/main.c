@@ -34,7 +34,7 @@ executeTest1(void)
 
     renderOksaFile("../src/oksa/unit_tests/master.twig.html", &var1, NULL, __FILE__, __LINE__);
 
-    if (var1->getLength(&var1, &errorNumber, __FILE__, __LINE__) < 1)
+    if (var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__) < 1)
     {
         abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
     }
@@ -69,7 +69,7 @@ executeTest2(void)
 
     renderOksaFile("../src/oksa/unit_tests/master.twig.html", &var1, &list1, __FILE__, __LINE__);
 
-    if (var1->getLength(&var1, &errorNumber, __FILE__, __LINE__) < 1)
+    if (var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__) < 1)
     {
         abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
     }

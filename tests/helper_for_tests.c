@@ -17,7 +17,7 @@ checkIfUnusedMemoryIsSetUpAsZero(char* titleFromTest, struct DynamicText** text,
 {
     int errorNumber = 0;
 
-    int valueForStart = (*text)->getLength(text, &errorNumber, filename, lineNumber);
+    int valueForStart = (*text)->getByteLength(text, &errorNumber, filename, lineNumber);
 
     for (int i = valueForStart; i <= ((*text)->amountOfBytes - 1); i++)
     {

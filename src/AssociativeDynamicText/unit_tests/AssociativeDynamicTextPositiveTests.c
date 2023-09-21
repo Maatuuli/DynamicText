@@ -62,7 +62,7 @@ executePositiveTest1(void)
     errorNumber = 42;
 
     if (
-        (customStrlen(textForkey, &errorNumber) != key->getLength(&key, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(textForkey, &errorNumber) != key->getByteLength(&key, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -82,7 +82,7 @@ executePositiveTest1(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(textForValue, &errorNumber) != value->getLength(&value, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(textForValue, &errorNumber) != value->getByteLength(&value, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {

@@ -1,40 +1,34 @@
-?> time { sh mutation_testing_execute.sh; } 
+?> sh mutation_testing_execute.sh 
 Mutation-testing 100% done, finished.
 
 -----------------------------
-Sat Sep 16 15:41:46 2023
 Time passed: 12 minutes
-Lines processed: 364 of 364
-Mutations: 439
-Build failed: 318
-Test failed: 101
+Lines processed: 384 of 384
+Mutations: 538
+Build failed: 399
+Test failed: 119
 Test timedout: 0
 Build timedout: 0
 Mutations survived: 20
-Mutation killratio: 83%
+Mutation killratio: 85%
 -----------------------------
 
 The following mutations survived: 
-../DynamicText.class.c:45     (*element).maxAmountOfBytes = 5 * 1029 * 1024;
-../DynamicText.class.c:95     maxLengthForCopy += 6;
-../DynamicText.class.c:99         int amountOfAdditionalBytes = maxLengthForCopy / 7;
-../DynamicText.class.c:103         if (amountOfAdditionalBytes > minimumAdditionalSizeForReallocation)
-../DynamicText.class.c:122     customStrncat((*element)->bytes, text, (*element)->amountOfBytes + customStrlen((*element)->bytes, errorNumber));
-../DynamicText.class.c:124     (*element)->bytes[(*element)->amountOfBytes - 6] = '\0';
-../DynamicText.class.c:160         customMemset((*element)->bytes, '\5', (*element)->amountOfBytes);
-../DynamicText.class.c:166     (*element)->amountOfBytes = 5;
-../DynamicText.class.c:169     customMemset((*element), '\5', sizeof(*element));
-../DynamicText.class.c:226     *errorNumber = 5;
-../DynamicText.class.c:280     for (int i = ((*element)->amountOfBytes - 6); i < newSize; i++)
-../DynamicText.class.c:287     (*element)->bytes[(*element)->amountOfBytes - 6] = '\0';
-../DynamicText.class.c:325     maxLengthForCopy -= 1;
-../DynamicText.class.c:329         int amountOfAdditionalBytes = (*element)->amountOfBytes / 7;
-../DynamicText.class.c:333         if (amountOfAdditionalBytes > minimumAdditionalSizeForReallocation)
-../DynamicText.class.c:353     customMemset((*element)->bytes, '\5', (*element)->amountOfBytes);
+../DynamicText.class.c:47     element->maxAmountOfBytes = 5 * 1029 * 1024;
+../DynamicText.class.c:98     maxLengthForCopy += 6;
+../DynamicText.class.c:102         int amountOfAdditionalBytes = maxLengthForCopy / 7;
+../DynamicText.class.c:106         if (amountOfAdditionalBytes > minimumAdditionalSizeForReallocation)
+../DynamicText.class.c:125     customStrncat((*element)->bytes, text, (*element)->amountOfBytes + customStrlen((*element)->bytes, errorNumber));
+../DynamicText.class.c:127     (*element)->bytes[(*element)->amountOfBytes - 6] = '\0';
+../DynamicText.class.c:155         customMemset((*element)->bytes, '\5', (*element)->amountOfBytes);
+../DynamicText.class.c:161     (*element)->amountOfBytes = 5;
+../DynamicText.class.c:164     customMemset((*element), '\5', sizeof(*element));
+../DynamicText.class.c:217     *errorNumber = 5;
+../DynamicText.class.c:308     for (int i = ((*element)->amountOfBytes - 6); i < newSize; i++)
+../DynamicText.class.c:315     (*element)->bytes[(*element)->amountOfBytes - 6] = '\0';
+../DynamicText.class.c:349     maxLengthForCopy -= 1;
+../DynamicText.class.c:353         int amountOfAdditionalBytes = (*element)->amountOfBytes / 7;
+../DynamicText.class.c:357         if (amountOfAdditionalBytes > minimumAdditionalSizeForReallocation)
+../DynamicText.class.c:377     customMemset((*element)->bytes, '\5', (*element)->amountOfBytes);
 
 Results have been written to ./MutationResult_.._DynamicText.class.c.html
-
-
-real	11m11,593s
-user	10m48,008s
-sys	    0m26,532s

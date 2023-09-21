@@ -5,6 +5,7 @@ See full details in LICENSE.txt file.
 */
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -17,10 +18,7 @@ See full details in LICENSE.txt file.
 #include "../../../tests/helper_for_tests.c"
 
 
-// DEBUG: static void wueder zurückstellen!!!
-
-
-void
+static void
 executePositiveTest1(void)
 {
     char* titleFromTest = "#01 Initialise and free a dynamic text.";
@@ -39,7 +37,7 @@ executePositiveTest1(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen("", &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen("", &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -75,7 +73,7 @@ executePositiveTest1(void)
 }
 
 
-void
+static void
 executePositiveTest2(void)
 {
     char* titleFromTest = "#02 Set an empty text.";
@@ -105,7 +103,7 @@ executePositiveTest2(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen("", &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen("", &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -115,7 +113,7 @@ executePositiveTest2(void)
     /* ### */
     errorNumber = 42;
     if (
-        (0 != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (0 != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -151,7 +149,7 @@ executePositiveTest2(void)
 }
 
 
-void
+static void
 executePositiveTest3(void)
 {
     char* titleFromTest = "#03 Set an unicode text.";
@@ -170,6 +168,7 @@ executePositiveTest3(void)
     /* ### */
     errorNumber = 42;
     char* ordinaryText = "This is an unicode text (ÄÖÜäöüß@µ).";
+    int64_t utf8LetterCount = 36;
     var1->set(&var1, ordinaryText, &errorNumber, __FILE__, __LINE__);
 
     if (0 != errorNumber)
@@ -182,7 +181,9 @@ executePositiveTest3(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(ordinaryText, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(ordinaryText, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
+        || (0 != errorNumber)
+        || (utf8LetterCount != var1->getUtf8Length(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -219,7 +220,7 @@ executePositiveTest3(void)
 }
 
 
-void
+static void
 executePositiveTest4(void)
 {
     char* titleFromTest = "#04 Set a text with the longest possible length without triggering a reallocation.";
@@ -256,7 +257,7 @@ executePositiveTest4(void)
     if (
         (customStrlen(exampleText, &errorNumber) != (var1->amountOfBytes - 1))
         || (0 != errorNumber)
-        || (customStrlen(exampleText, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        || (customStrlen(exampleText, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -292,7 +293,7 @@ executePositiveTest4(void)
 }
 
 
-void
+static void
 executePositiveTest5(void)
 {
     char* titleFromTest = "#05 Set a large text to trigger reallocation.";
@@ -325,7 +326,7 @@ executePositiveTest5(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -362,7 +363,7 @@ executePositiveTest5(void)
 }
 
 
-void
+static void
 executePositiveTest6(void)
 {
     char* titleFromTest = "#06 Set 2 large text to trigger 2 reallocations.";
@@ -407,7 +408,7 @@ executePositiveTest6(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence2, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence2, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -445,7 +446,7 @@ executePositiveTest6(void)
 }
 
 
-void
+static void
 executePositiveTest7(void)
 {
     char* titleFromTest = "#07 Set 3 texts which grow on every assignment.";
@@ -479,7 +480,7 @@ executePositiveTest7(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -510,7 +511,7 @@ executePositiveTest7(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence2, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence2, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -541,7 +542,7 @@ executePositiveTest7(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence3, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence3, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -577,7 +578,7 @@ executePositiveTest7(void)
 }
 
 
-void
+static void
 executePositiveTest8(void)
 {
     char* titleFromTest = "#08 Set 3 texts which shrink on every assignment.";
@@ -611,7 +612,7 @@ executePositiveTest8(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -642,7 +643,7 @@ executePositiveTest8(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence2, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence2, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -673,7 +674,7 @@ executePositiveTest8(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence3, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence3, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -709,7 +710,7 @@ executePositiveTest8(void)
 }
 
 
-void
+static void
 executePositiveTest9(void)
 {
     char* titleFromTest = "#09 Append an empty text.";
@@ -739,7 +740,7 @@ executePositiveTest9(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen("", &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen("", &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -775,7 +776,7 @@ executePositiveTest9(void)
 }
 
 
-void
+static void
 executePositiveTest10(void)
 {
     char* titleFromTest = "#10 Append an unicode text.";
@@ -807,7 +808,7 @@ executePositiveTest10(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -843,7 +844,7 @@ executePositiveTest10(void)
 }
 
 
-void
+static void
 executePositiveTest11(void)
 {
     char* titleFromTest = "#11 Append 3 texts.";
@@ -877,7 +878,7 @@ executePositiveTest11(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -907,7 +908,7 @@ executePositiveTest11(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber)) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__)
+        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber)) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__)
         || (0 != errorNumber)
     )
     {
@@ -928,7 +929,7 @@ executePositiveTest11(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber) + customStrlen(sentence3, &errorNumber)) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__)
+        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber) + customStrlen(sentence3, &errorNumber)) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__)
         || (0 != errorNumber)
     )
     {
@@ -954,7 +955,7 @@ executePositiveTest11(void)
 }
 
 
-void
+static void
 executePositiveTest12(void)
 {
     char* titleFromTest = "#12 Append 2 large texts to trigger reallocations.";
@@ -987,7 +988,7 @@ executePositiveTest12(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -1008,7 +1009,7 @@ executePositiveTest12(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber) != var1->getLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence1, &errorNumber) + customStrlen(sentence2, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -1035,7 +1036,7 @@ executePositiveTest12(void)
 }
 
 
-void
+static void
 executePositiveTest13(void)
 {
     char* titleFromTest = "#13 Manually resize 2x and fill all bytes with letters each time.";
@@ -1114,6 +1115,77 @@ executePositiveTest13(void)
 }
 
 
+static void
+executePositiveTest14(void)
+{
+    char* titleFromTest = "#14 Check length of UTF-8 text.";
+
+    /* ### */
+    int errorNumber = 42;
+    struct DynamicText* var1 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
+
+    if ((NULL == var1) || (0 != errorNumber))
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    checkIfUnusedMemoryIsSetUpAsZero(titleFromTest, &var1, __FILE__, __LINE__);
+
+    /* ### */
+    errorNumber = 42;
+    char* ordinaryText = "µ女ü@ß";
+    int64_t utf8LetterCount = 5;
+    var1->set(&var1, ordinaryText, &errorNumber, __FILE__, __LINE__);
+
+    if (0 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    checkIfUnusedMemoryIsSetUpAsZero(titleFromTest, &var1, __FILE__, __LINE__);
+
+    /* ### */
+    errorNumber = 42;
+    if (
+        (customStrlen(ordinaryText, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
+        || (0 != errorNumber)
+        || (utf8LetterCount != var1->getUtf8Length(&var1, &errorNumber, __FILE__, __LINE__))
+        || (0 != errorNumber)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    if (
+        (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), ordinaryText, customStrlen(ordinaryText, &errorNumber)))
+        || (0 != errorNumber)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->free(&var1, &errorNumber, __FILE__, __LINE__);
+
+    /* ### */
+    if (
+        (0 == errorNumber)
+        && (NULL == var1)
+        && (globaleAmountOfAllocations == globaleAmountOfFrees)
+        && (0 == globaleAmountOfAllocatedMemoryInBytes)
+    )
+    {
+        printf("[SUCCESS] %s\n", titleFromTest);
+        return;
+    }
+
+    abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+}
+
+
 int
 main(void)
 {
@@ -1135,6 +1207,7 @@ main(void)
     executePositiveTest11();
     executePositiveTest12();
     executePositiveTest13();
+    executePositiveTest14();
 
     return EXIT_SUCCESS;
 }
