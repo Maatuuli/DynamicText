@@ -99,16 +99,7 @@ appendDynamicText(struct DynamicText** element, char* text, int* errorNumber, ch
 
     if (maxLengthForCopy > (*element)->amountOfBytes)
     {
-        int amountOfAdditionalBytes = maxLengthForCopy / 2;
-
-        /* Increase amount of needed memory by an extra amount, to avoid inefficent byte by byte reallocations. */
-        int minimumAdditionalSizeForReallocation = (*element)->minAmountOfBytes;
-        if (amountOfAdditionalBytes < minimumAdditionalSizeForReallocation)
-        {
-            amountOfAdditionalBytes = minimumAdditionalSizeForReallocation;
-        }
-
-        maxLengthForCopy += amountOfAdditionalBytes;
+        maxLengthForCopy += maxLengthForCopy / 2;
 
         /* There is a limit for maximum amount of allocated text. */
         if (maxLengthForCopy > (*element)->maxAmountOfBytes)
@@ -122,7 +113,7 @@ appendDynamicText(struct DynamicText** element, char* text, int* errorNumber, ch
         (*element)->resize(element, maxLengthForCopy, errorNumber, filename, lineNumber);
     }
 
-    customStrncat((*element)->bytes, text, (*element)->amountOfBytes - customStrlen((*element)->bytes, errorNumber));
+    customStrncat((*element)->bytes, text, customStrlen(text, errorNumber));
 
     (*element)->bytes[(*element)->amountOfBytes - 1] = '\0';
 
@@ -152,7 +143,7 @@ freeDynamicText(struct DynamicText** element, int* errorNumber, char* filename, 
     if (NULL != (*element)->bytes)
     {
         /* Security: Clear complete memory before freeing. */
-        customMemset((*element)->bytes, '\0', (*element)->amountOfBytes);
+        (*element)->set(element, "", errorNumber, filename, lineNumber);
 
         customFree((*element)->bytes, (*element)->amountOfBytes);
         (*element)->bytes = NULL;
@@ -214,9 +205,19 @@ getByteLengthFromDynamicText(struct DynamicText** element, int* errorNumber, cha
         return -1;
     }
 
+    int64_t length = customStrlen((*element)->bytes, errorNumber);
+
+    if (*errorNumber)
+    {
+        appendMessageToErrorLog("Problem with text length from strlen function!", __func__, filename, lineNumber);
+        *errorNumber = 4020;
+
+        return -1;
+    }
+
     *errorNumber = 0;
 
-    return customStrlen((*element)->bytes, errorNumber);
+    return length;
 }
 
 
@@ -305,14 +306,13 @@ resizeDynamicText(struct DynamicText** element, int newSize, int* errorNumber, c
     (*element)->bytes = pointer;
 
     /* Initialise additional bytes from new pointer with termination sign. */
-    for (int i = ((*element)->amountOfBytes - 1); i < newSize; i++)
+    int64_t startIndex = (*element)->getByteLength(element, errorNumber, filename, lineNumber);
+    for (int i = startIndex; i < newSize; i++)
     {
         (*element)->bytes[i] = '\0';
     }
 
     (*element)->amountOfBytes = newSize;
-
-    (*element)->bytes[(*element)->amountOfBytes - 1] = '\0';
 
     *errorNumber = 0;
 }
@@ -350,16 +350,7 @@ setDynamicText(struct DynamicText** element, char* text, int* errorNumber, char*
 
     if (maxLengthForCopy > (*element)->amountOfBytes)
     {
-        int amountOfAdditionalBytes = (*element)->amountOfBytes / 2;
-
-        /* Increase amount of needed memory by an extra amount, to avoid inefficent byte by byte reallocations. */
-        int minimumAdditionalSizeForReallocation = (*element)->minAmountOfBytes;
-        if (amountOfAdditionalBytes < minimumAdditionalSizeForReallocation)
-        {
-            amountOfAdditionalBytes = minimumAdditionalSizeForReallocation;
-        }
-
-        maxLengthForCopy += amountOfAdditionalBytes;
+        maxLengthForCopy += (maxLengthForCopy / 2);
 
         /* We want to set up a maximum amount of allocated text. */
         if (maxLengthForCopy > (*element)->maxAmountOfBytes)

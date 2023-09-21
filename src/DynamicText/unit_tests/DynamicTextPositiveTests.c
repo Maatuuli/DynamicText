@@ -782,7 +782,9 @@ executePositiveTest10(void)
     char* titleFromTest = "#10 Append an unicode text.";
 
     /* ### */
-    char* sentence1 = "Just some words for a sentence (ÄÖÜäöüß@µ).";
+    char* sentence1 = "Just some words";
+    char* sentence2 = " for a sentence (ÄÖÜäöüß@µ).";
+    char* sentence3 = "Just some words for a sentence (ÄÖÜäöüß@µ).";
 
     int errorNumber = 42;
     struct DynamicText* var1 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
@@ -796,7 +798,18 @@ executePositiveTest10(void)
 
     /* ### */
     errorNumber = 42;
-    var1->append(&var1, sentence1, &errorNumber, __FILE__, __LINE__);
+    var1->set(&var1, sentence1, &errorNumber, __FILE__, __LINE__);
+
+    if (0 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    checkIfUnusedMemoryIsSetUpAsZero(titleFromTest, &var1, __FILE__, __LINE__);
+
+    /* ### */
+    errorNumber = 42;
+    var1->append(&var1, sentence2, &errorNumber, __FILE__, __LINE__);
 
     if (0 != errorNumber)
     {
@@ -808,7 +821,7 @@ executePositiveTest10(void)
     /* ### */
     errorNumber = 42;
     if (
-        (customStrlen(sentence1, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
+        (customStrlen(sentence3, &errorNumber) != var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__))
         || (0 != errorNumber)
     )
     {
@@ -818,7 +831,7 @@ executePositiveTest10(void)
     /* ### */
     errorNumber = 42;
     if (
-        (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), sentence1, customStrlen(sentence1, &errorNumber)))
+        (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), sentence3, customStrlen(sentence3, &errorNumber)))
         || (0 != errorNumber)
     )
     {
@@ -1118,7 +1131,70 @@ executePositiveTest13(void)
 static void
 executePositiveTest14(void)
 {
-    char* titleFromTest = "#14 Check length of UTF-8 text.";
+    char* titleFromTest = "#14 Resize filled dynamic text and check if text is still valid.";
+
+    /* ### */
+    int errorNumber = 42;
+    int oldAmountOfReallocations = globaleAmountOfReallocations;
+    struct DynamicText* var1 = allocateDynamicText(&errorNumber, __FILE__, __LINE__);
+
+    if ((NULL == var1) || (0 != errorNumber))
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    checkIfUnusedMemoryIsSetUpAsZero(titleFromTest, &var1, __FILE__, __LINE__);
+
+    /* ### */
+    char* ordinaryText  = "This is the new text.";
+    var1->set(&var1, ordinaryText, &errorNumber, __FILE__, __LINE__);
+
+    /* ### */
+    int newSize = 500;
+    errorNumber = 42;
+    var1->resize(&var1, newSize, &errorNumber, __FILE__, __LINE__);
+
+    if (0 != errorNumber)
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    checkIfUnusedMemoryIsSetUpAsZero(titleFromTest, &var1, __FILE__, __LINE__);
+
+    /* ### */
+    errorNumber = 42;
+    if (
+        (0 != customStrncmp(var1->getBytesPointer(&var1, &errorNumber), ordinaryText, customStrlen(ordinaryText, &errorNumber)))
+        || (0 != errorNumber)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    /* ### */
+    errorNumber = 42;
+    var1->free(&var1, &errorNumber, __FILE__, __LINE__);
+
+    if (
+        (0 == errorNumber)
+        && (NULL == var1)
+        && (globaleAmountOfAllocations == globaleAmountOfFrees)
+        && ((oldAmountOfReallocations + 1) == globaleAmountOfReallocations)
+        && (0 == globaleAmountOfAllocatedMemoryInBytes)
+    )
+    {
+        printf("[SUCCESS] %s\n", titleFromTest);
+        return;
+    }
+
+    abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+}
+
+
+static void
+executePositiveTest15(void)
+{
+    char* titleFromTest = "#15 Check length of UTF-8 text.";
 
     /* ### */
     int errorNumber = 42;
@@ -1208,6 +1284,7 @@ main(void)
     executePositiveTest12();
     executePositiveTest13();
     executePositiveTest14();
+    executePositiveTest15();
 
     return EXIT_SUCCESS;
 }

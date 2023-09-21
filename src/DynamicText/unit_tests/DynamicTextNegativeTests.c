@@ -709,6 +709,22 @@ executeNegativeTest15(void)
 
     /* ### */
     errorNumber = 42;
+    char* bufferedPointer = var1->bytes;
+    var1->bytes = NULL;
+    result = var1->getByteLength(&var1, &errorNumber, __FILE__, __LINE__);
+
+    if (
+        (4020 != errorNumber)
+        || (-1 != result)
+    )
+    {
+        abortTestWithErrorMessage(titleFromTest, __func__, __FILE__, __LINE__);
+    }
+
+    var1->bytes = bufferedPointer;
+
+    /* ### */
+    errorNumber = 42;
     var1->free(&var1, &errorNumber, __FILE__, __LINE__);
 
     if (
