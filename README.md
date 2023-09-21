@@ -20,3 +20,7 @@ Project goals:
   * so for 1 production code line I need 4 additional lines of code to test it
 * statistics for the amount of allocation, reallocation and free calls
 * "One-file compilation" approach with multi *.c file structure: You compile the whole website with one GCC bash line.
+
+![alt chart__lines_of_code](https://github.com/Maatuuli/DynamicText/blob/main/chart___lines_of_code.jpg?raw=true)
+
+![alt code_coverage_overview](https://github.com/Maatuuli/DynamicText/blob/main/code_coverage.png?raw=true)
